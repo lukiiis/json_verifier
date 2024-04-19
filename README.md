@@ -5,6 +5,7 @@ AWS::IAM::Role Policy verifier in Java.
 Clone this project to your computer, open terminal and go to the root directory of the project and run `mvn clean test`. You can also run the `Verifier` Java class to run the main function, which will run the program.
 
 ## Functionality
+
 1. **`verifyJson(String path)`**:
     - This method reads a JSON file from the given path and checks its correctness according to IAM role policy.
     - If the file is not a valid IAM role policy, the program displays an error message.
@@ -22,47 +23,41 @@ Clone this project to your computer, open terminal and go to the root directory 
 
 ## Test Cases
 
-### `testVerifyJsonWithMultipleStatements()`
+1. **`testVerifyJsonWithMultipleStatements()`**
+    - **Description**: Verifies the functionality of the `verifyJson(String path)` method when the JSON file contains multiple statements in the IAM role policy.
+    - **Expected Outcome**: The method should execute without errors, indicating successful verification of the policy.
 
-- **Description**: Verifies the functionality of the `verifyJson(String path)` method when the JSON file contains multiple statements in the IAM role policy.
-- **Expected Outcome**: The method should execute without errors, indicating successful verification of the policy.
+2. **`testVerifyJsonWithFalseResource()`**
+    - **Description**: Tests the behavior of the `verifyJson(String path)` method when the JSON file contains a statement with a false resource.
+    - **Expected Outcome**: The method should properly identify the false resource and handle it according to the verification logic.
 
-### `testVerifyJsonWithFalseResource()`
+3. **`testVerifyJsonWithTrueResource()`**
+    - **Description**: Checks the functionality of the `verifyJson(String path)` method when the JSON file contains a statement with a true resource.
+    - **Expected Outcome**: The method should correctly identify the true resource and pass the verification process.
 
-- **Description**: Tests the behavior of the `verifyJson(String path)` method when the JSON file contains a statement with a false resource.
-- **Expected Outcome**: The method should properly identify the false resource and handle it according to the verification logic.
+4. **`testVerifyResourceWithValidResource()`**
+    - **Description**: Validates the `verifyResource(JsonNode statement)` method's behavior when provided with a valid resource in a JSON node.
+    - **Expected Outcome**: The method should return `true`, indicating that the resource is valid according to the verification criteria.
 
-### `testVerifyJsonWithTrueResource()`
+5. **`testVerifyResourceWithNullResource()`**
+    - **Description**: Tests the `verifyResource(JsonNode statement)` method's handling of a JSON node with a null resource.
+    - **Expected Outcome**: The method should return `false`, as a null resource does not meet the verification criteria.
 
-- **Description**: Checks the functionality of the `verifyJson(String path)` method when the JSON file contains a statement with a true resource.
-- **Expected Outcome**: The method should correctly identify the true resource and pass the verification process.
+6. **`testVerifyResourceWithWildcardResource()`**
+    - **Description**: Verifies the behavior of the `verifyResource(JsonNode statement)` method when provided with a wildcard resource in a JSON node.
+    - **Expected Outcome**: The method should return `false`, as a wildcard resource is considered invalid according to the verification criteria.
 
-### `testVerifyResourceWithValidResource()`
+7. **`testVerifyFileWithValidPolicyDocument()`**
+    - **Description**: Checks the functionality of the `verifyFile(JsonNode rootNode)` method when provided with a valid IAM policy document in a JSON node.
+    - **Expected Outcome**: The method should return `true`, indicating that the policy document is valid.
 
-- **Description**: Validates the `verifyResource(JsonNode statement)` method's behavior when provided with a valid resource in a JSON node.
-- **Expected Outcome**: The method should return `true`, indicating that the resource is valid according to the verification criteria.
+8. **`testVerifyFileWithNullPolicyDocument()`**
+    - **Description**: Tests the `verifyFile(JsonNode rootNode)` method's handling of a JSON node with a null policy document.
+    - **Expected Outcome**: The method should return `false`, as a null policy document does not meet the verification criteria.
 
-### `testVerifyResourceWithNullResource()`
+9. **`testVerifyFileWithNullStatement()`**
+    - **Description**: Validates the behavior of the `verifyFile(JsonNode rootNode)` method when provided with a JSON node with a null statement.
+    - **Expected Outcome**: The method should return `false`, as a null statement does not meet the verification criteria.
 
-- **Description**: Tests the `verifyResource(JsonNode statement)` method's handling of a JSON node with a null resource.
-- **Expected Outcome**: The method should return `false`, as a null resource does not meet the verification criteria.
-
-### `testVerifyResourceWithWildcardResource()`
-
-- **Description**: Verifies the behavior of the `verifyResource(JsonNode statement)` method when provided with a wildcard resource in a JSON node.
-- **Expected Outcome**: The method should return `false`, as a wildcard resource is considered invalid according to the verification criteria.
-
-### `testVerifyFileWithValidPolicyDocument()`
-
-- **Description**: Checks the functionality of the `verifyFile(JsonNode rootNode)` method when provided with a valid IAM policy document in a JSON node.
-- **Expected Outcome**: The method should return `true`, indicating that the policy document is valid.
-
-### `testVerifyFileWithNullPolicyDocument()`
-
-- **Description**: Tests the `verifyFile(JsonNode rootNode)` method's handling of a JSON node with a null policy document.
-- **Expected Outcome**: The method should return `false`, as a null policy document does not meet the verification criteria.
-
-### `testVerifyFileWithNullStatement()`
-
-- **Description**: Validates the behavior of the `verifyFile(JsonNode rootNode)` method when provided with a JSON node with a null statement.
-- **Expected Outcome**: The method should return `false`, as a null statement does not meet the verification criteria.
+## Notes
+`resources` directory contains multiple policies, required for manual testing.
